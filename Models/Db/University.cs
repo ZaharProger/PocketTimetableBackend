@@ -8,7 +8,7 @@ namespace PocketTimetableBackend.Models.Db
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None), Key]
         public long Id { get; set; }
-        public string? ShortName { get; set; }
+        public string ShortName { get; set; }
         public List<Group> Groups { get; set; } = new();
     }
 }
