@@ -16,6 +16,7 @@ namespace PocketTimetableBackend
             builder.Services.AddDbContext<UniversitiesContext>();
             builder.Services.AddTransient<Parser>();
             builder.Services.AddTransient<UniversityService>();
+            builder.Services.AddTransient<GroupService>();
 
             var app = builder.Build();
 
