@@ -9,11 +9,13 @@ namespace PocketTimetableBackend
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddControllers();
             builder.Services.AddAuthorization();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddDbContext<UniversitiesContext>();
             builder.Services.AddTransient<Parser>();
+            builder.Services.AddTransient<UniversityService>();
 
             var app = builder.Build();
 
@@ -25,6 +27,7 @@ namespace PocketTimetableBackend
 
             app.UseHttpsRedirection();
             app.UseAuthorization();
+            app.MapControllers();
 
             app.Run();
         }
