@@ -17,9 +17,10 @@ namespace PocketTimetableBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetGroupsByUniversityId([FromQuery] long universityId)
+        public async Task<JsonResult> GetGroupsByUniversityId([FromQuery] string universityId)
         {
-            var foundGroups = await service.GetGroupsByUniversityId(universityId);
+            var foundGroups = await service
+                .GetGroupsByUniversityId(long.TryParse(universityId, out long parsedId)? parsedId : 0L);
 
             return new JsonResult(
                 new ControllerResponse<Group>()
