@@ -1,11 +1,11 @@
-﻿using PocketTimetableBackend.Models.Http;
+﻿using PocketTimetableBackend.Models;
 using PocketTimetableBackend.Services.Strategy;
 
 namespace PocketTimetableBackend.Services
 {
     public class Parser
     {
-        public ParseResult Parse(string targetUri, IDataParserStrategy strategy)
+        public BaseEntity[] Parse(string targetUri, IDataParserStrategy strategy)
         {
             return strategy.Parse(targetUri);
         }

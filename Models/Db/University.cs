@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace PocketTimetableBackend.Models.Db
 {
     [Table("Universities")]
-    public class University: BaseDbEntity
+    public class University: BaseEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None), Key]
         public long Id { get; set; }

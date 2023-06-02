@@ -17,7 +17,19 @@ namespace PocketTimetableBackend.Services
         {
             return await context.Groups
                 .Where(group => group.UniversityId == id)
+                .Select(group => new Group()
+                {
+                    Id = group.Id,
+                    Name = group.Name,
+                    UniversityId = group.UniversityId,
+                    UrlId = 0
+                })
                 .ToArrayAsync();
+        }
+
+        public async Task<Group?> GetGroupById(long id)
+        {
+            return await context.Groups.FindAsync(id);
         }
     }
 }
