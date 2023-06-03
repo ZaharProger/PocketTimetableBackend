@@ -1,4 +1,5 @@
-﻿using PocketTimetableBackend.Models;
+﻿using PocketTimetableBackend.Constants;
+using PocketTimetableBackend.Models;
 using PocketTimetableBackend.Models.Db;
 using RestSharp;
 using System.Text.RegularExpressions;
@@ -39,8 +40,9 @@ namespace PocketTimetableBackend.Services.Strategy
                 :
                 new Models.Db.Group()
                 {
-                    UrlId = int.TryParse(parsedGroups[i - 1].Groups[1].Value, out int resultId) ? resultId : 0,
-                    Name = parsedGroups[i - 1].Groups[2].Value,
+                    UrlId = int.TryParse(parsedGroups[i - 1]
+                    .Groups[ParserKeys.GROUP_ID].Value.Trim(), out int resultId) ? resultId : 0,
+                    Name = parsedGroups[i - 1].Groups[ParserKeys.GROUP_NAME].Value.Trim(),
                     University = (University)parsedItems[0]
                 };
             }
