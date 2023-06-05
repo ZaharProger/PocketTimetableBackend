@@ -7,7 +7,8 @@ namespace PocketTimetableBackend.Models.Http
         public string Tutor { get; set; }
         public SubjectTypes? SubjectType { get; set; }
         public string Classroom { get; set; }
-        public string TimeStart { get; set; }
+        public int TimeStart { get; set; }
+        public int TimeEnd { get; set; }
         public string SubGroupName { get; set; }
     }
 }

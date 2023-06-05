@@ -2,6 +2,7 @@
 using PocketTimetableBackend.Models;
 using PocketTimetableBackend.Models.Http;
 using RestSharp;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace PocketTimetableBackend.Services.Strategy
@@ -86,8 +87,8 @@ namespace PocketTimetableBackend.Services.Strategy
                 var subjectWeek = subjectsGroups[ParserKeys.SUBJECT_WEEK].Value.Trim().ToLower();
 
                 var correctWeek = subjectWeek.Equals("all") ||
-                    (subjectWeek.Equals("odd") && weekType.Equals("четная")) ||
-                    (subjectWeek.Equals("even") && weekType.Equals("нечетная"));
+                    (subjectWeek.Equals("odd") && weekType.Equals(ParserKeys.EVEN_WEEK)) ||
+                    (subjectWeek.Equals("even") && weekType.Equals(ParserKeys.ODD_WEEK));
                 var isChanged = subjectsGroups[ParserKeys.SUBJECT_NAME_STYLE].Value.Trim().ToLower().Contains("#f9f9f9");
 
                 if (correctWeek && !isChanged)
@@ -99,11 +100,15 @@ namespace PocketTimetableBackend.Services.Strategy
                         ParserKeys.EXAM : subjectName.ToLower().Contains(ParserKeys.CANCELLATION) ?
                         ParserKeys.CANCELLATION : subjectsGroups[ParserKeys.SUBJECT_TYPE].Value.Trim().ToLower();
 
+                    var timeFromString = DateTime.ParseExact(lastSubjectTime, "H:mm", CultureInfo.InvariantCulture);
+                    var timeStartSeconds = timeFromString.Hour * 3600 + timeFromString.Minute * 60;
+
                     subjects.Add(new Subject()
                     {
                         Name = subjectName,
                         SubGroupName = subjectsGroups[ParserKeys.SUBJECT_SUB_GROUP].Value.Trim(),
-                        TimeStart = lastSubjectTime,
+                        TimeStart = timeStartSeconds,
+                        TimeEnd = timeStartSeconds + 5400,
                         SubjectType = subjectTypesDict[subjectTypeKey],
                         Tutor = subjectsGroups[ParserKeys.SUBJECT_TUTOR].Value.Trim(),
                         Classroom = subjectsGroups[ParserKeys.SUBJECT_CLASSROOM].Value.Trim()

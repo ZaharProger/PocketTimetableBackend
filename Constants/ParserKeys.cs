@@ -12,6 +12,8 @@
         public static readonly string SUBJECT_CLASSROOM = "classRoom";
         public static readonly string DAY = "day";
         public static readonly string WEEK_TYPE = "weekType";
+        public static readonly string EVEN_WEEK = "четная";
+        public static readonly string ODD_WEEK = "нечетная";
         public static readonly string SUBJECT_WEEK = "subjectWeek";
         public static readonly string SUBJECT_NAME_STYLE = "style";
         public static readonly string LECTURE = "лекция";
