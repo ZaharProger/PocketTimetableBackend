@@ -9,7 +9,7 @@ namespace PocketTimetableBackend.Services.Strategy
 {
     public class IstuTimetableParserStrategy : IDataParserStrategy
     {
-        private static readonly Dictionary<string, SubjectTypes> subjectTypesDict = new()
+        private static readonly Dictionary<string, string> subjectTypesDict = new()
         {
             { ParserKeys.CANCELLATION, SubjectTypes.CANCELLATION },
             { ParserKeys.CONSULTATION, SubjectTypes.CONSULTATION },
@@ -24,7 +24,7 @@ namespace PocketTimetableBackend.Services.Strategy
 
         public BaseEntity[] Parse(string targetUri)
         {
-            var restClientOptions = new RestClientOptions(targetUri);
+            var restClientOptions = new RestClientOptions(targetUri + "&date=2023-3-11");
             var restClient = new RestClient(restClientOptions);
             var rawData = restClient.Get(new RestRequest()).Content ?? "";
 
