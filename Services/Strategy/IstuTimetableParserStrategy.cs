@@ -24,7 +24,7 @@ namespace PocketTimetableBackend.Services.Strategy
 
         public BaseEntity[] Parse(string targetUri)
         {
-            var restClientOptions = new RestClientOptions(targetUri + "&date=2023-3-11");
+            var restClientOptions = new RestClientOptions(targetUri);
             var restClient = new RestClient(restClientOptions);
             var rawData = restClient.Get(new RestRequest()).Content ?? "";
 
@@ -38,7 +38,7 @@ namespace PocketTimetableBackend.Services.Strategy
                 var weekType = parsedWeekType[0].Groups[ParserKeys.WEEK_TYPE].Value.Trim().ToLower();
 
                 var extraBlocksPattern = new Regex("<div class=\"class-pred\"><span style=\"[\\w\\s:;.\\-#]+\"><img src=[\\w\\s\\/+=,;:\\-]+><b>");
-                var daySubjectsPattern = new Regex("(<div class=\"class-line-item\">\r?\n<div class=\"class-tails\">\r?\n<div class=\"class-time\">(?'timeStart'[\\d:]+)<\\/div>\\n)*(<div class=\"class-tail class-(even|odd|all)-week\">[а-яА-Я\\s]*<\\/div>\\n)*<div class=\"class-tail class-(?'subjectWeek'even|odd|all)-week\">\\n<div class=\"class-info\">(?'subjectType'[а-яА-Я\\s]*)(<a href=\"\\?prep=\\d*\">(?'tutor'[а-яА-Я\\s.\\-]+)<\\/a>)*<\\/div>\\n<div class=\"class-pred\">(<b style=\"(?'style'[\\w\\s:;.\\-#]+)\">)*(?'name'[а-яА-Я\\s\\-\\w\\d|»«,():\"@#№$%^*&?!+{}/~`]+)(<\\/b>|<\\/b> <\\/span>)*<\\/div>\\n<div class=\"class-info\">(<a href=\"\\?group=\\d*\">[а-яА-Я\\d\\-]+<\\/a>[,\\s]*)*(?'subGroup'[а-яА-Я\\d\\s]*)<\\/div>\\n<div class=\"class-aud\"><a href=\"\\?aud=\\d*\">(?'classRoom'[а-яА-Я\\s\\-\\d.]+)<\\/a>(<\\/div>\\n)+");
+                var daySubjectsPattern = new Regex("(<div class=\"class-line-item\">\r?\n<div class=\"class-tails\">\r?\n<div class=\"class-time\">(?'timeStart'[\\d:]+)<\\/div>\\n)*(<div class=\"class-tail class-(even|odd|all)-week\">[а-яА-Я\\s]*<\\/div>\\n)*<div class=\"class-tail class-(?'subjectWeek'even|odd|all)-week\">\\n<div class=\"class-info\">(?'subjectType'[а-яА-Я\\s]*)(<a href=\"\\?prep=\\d*\">(?'tutor'[а-яА-Я\\s.\\-]+)<\\/a>)*<\\/div>\\n<div class=\"class-pred\">(<b style=\"(?'style'[\\w\\s:;.\\-#]+)\">)*(?'name'[а-яА-Я\\s\\-\\w\\d|»«,():\"@#№$%^*&?!+{}/~`]+)(<\\/b>|<\\/b> <\\/span>)*<\\/div>\\n<div class=\"class-info\">(<a href=\"\\?group=\\d*\">[а-яА-Я\\d\\-]+<\\/a>[,\\s]*)*(?'subGroup'[а-яА-Я\\d\\s]*)<\\/div>\\n<div class=\"class-aud\">(<a href=\"\\?aud=\\d*\">(?'classRoom'[а-яА-Я\\s\\-\\d.]+)<\\/a>)*(<\\/div>\\n)+");
                 var dayPattern = new Regex("<h3 class=\"day-heading\">(?'day'[а-яА-Я\\d,\\s]+)");
                 var parsedDays = dayPattern.Matches(rawData);
 
